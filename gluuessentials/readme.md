@@ -1,15 +1,21 @@
 # Essential Gluu Training
 
-- Gluu Server installation
-- Gluu Server backups
-- Gluu Server certificates
-- Gluu Server logs
-- LDAP overview 
-- Cache Refresh
+- Identity Ecosystem Overview
+- Gluu Server origins
+- Component overview
+- Deployment topologies
+- Installation
+- File system overview
+- Start, stop and status
+- Logs
+- Backup
+- JSON Configuration
+- LDAP overview
+- Keys and certificates
 - Attributes
-- SAML IDP configuration
-- SAML SP configuration
-- OpenID Connect client configuration
-- OpenID Connect RP configuration
-- Session management
-
+- Federated Identity Overview
+- Basic Authentication
+- Interception Script overview
+- Cache Refresh
+- SCIM Overview
+- Quick SAML SSO example
