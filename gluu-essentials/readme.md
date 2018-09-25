@@ -18,4 +18,6 @@
 - Interception Script overview
 - Cache Refresh
 - SCIM Overview
-- Quick SAML SSO example
+- SAML SSO Overview
+- OpenID Connect SSO Overview 
+- UMA Overview
