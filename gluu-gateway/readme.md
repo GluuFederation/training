@@ -1,7 +1,7 @@
 # Gluu Gateway Training
 
-Installation
-Conceptual overview  
+Installation    
+Conceptual overview    
 Gluu Gateway and Kong  
 Konga - Admin GUI  
 Gluu Gateway Architecture  
