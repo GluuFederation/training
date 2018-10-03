@@ -12,6 +12,5 @@ Securing REST Resources
   API Security  
 Working Modes   
   OAuth mode  
-  UMA mode  
-  Mix Mode  
+  UMA mode    
 Installation  
