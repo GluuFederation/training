@@ -3,13 +3,20 @@
 
 Discuss concepts of how Docker "works" with containerization of environnments and communication with Docker or Kubernetes as an orchestrator:
 
-    Docker, as well as Kubernetes and any container orchestration platform, uses cgroups to isolate process capabilities (cpu, ram, etc) and also namespaces to isolate these processes from each other, all within one external host. In effect, you can have multiple distinct groups of processes running on the same machine that are incapable of interacting with other groups. For the simple demonstration we are going to make a namespace using Docker as the orchestrator. Containers are "immutable" to an extent. The entrypoint scripts adjust them every time they launch as it pulls configuration from a central repository each time.
+    Docker, as well as Kubernetes and any container orchestration platform,
+    uses cgroups to isolate process capabilities (cpu, ram, etc) and also namespaces
+    to isolate these processes from each other, all within one external host. In effect,
+    you can have multiple distinct groups of processes running on the same machine that
+    are incapable of interacting with other groups. For the simple demonstration we are
+    going to make a namespace using Docker as the orchestrator. Containers are "immutable"
+    to an extent. The entrypoint scripts adjust them every time they launch as it pulls
+    configuration from a central repository each time.
 
 - Discuss size considerations for rapid deployments.
 
     - Further discussion about Alpine Linux
 
-- Discuss startup and what purpose entrypoints serve as well ass wait-for-it scripts
+- Discuss startup and what purpose entrypoints serve as well as wait-for-it scripts
 
 - Dicuss networking and potential conflicts related to proxies and other hurdles for communication
 
