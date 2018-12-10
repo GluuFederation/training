@@ -1,2 +1,0 @@
-# training
-Gluu training materials
