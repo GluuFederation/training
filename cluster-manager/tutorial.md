@@ -15,10 +15,10 @@ In this tutorial, you will create a two-node Gluu Server cluster using Virtual B
 | GS1| gs1.mygluu.org |192.168.56.201 | Ubuntu 16 | 4GB         | Gluu Server Node 1 |
 | GS2| gs2.mygluu.org |192.168.56.202 | Ubuntu 16 | 4GB         | Gluu Server Node 2 |
 
-!!! note
+!!! note  
     The concepts demonstrated in this tutorial will work on other virtual or physical machines and different [supported operating systems](https://www.gluu.org/docs/ce/installation-guide/#supported-operating-systems), but exact settings and commands may vary.
     
-Each machine has the following entries in the /etc/hosts file:
+Each machine has the following entries in the `/etc/hosts` file:
 
 ```
 192.168.56.150 cm.mygluu.org
@@ -100,7 +100,7 @@ Is the information correct? [Y/n] y
 ```
 
 ### Generate SSH Public Key on CM 
-GCM will manage all servers via ssh without a password. So we need an SSH public key created on CM and distributed to LB, GCS1 and GCS2.
+GCM will manage all servers via SSH without a password. So we need an SSH public key created on CM and distributed to LB, GCS1 and GCS2.
 Log in to CM as foo and create an SSH public key:
 
 ```
@@ -169,6 +169,7 @@ Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.4.0-131-generic x86_64)
 ## Install Gluu Cluster Manager
 
 When finished preparing the servers, it’s time to install GCM. 
+
 1. Log in to CM as root and install dependencies with:
 
     ```
@@ -190,28 +191,32 @@ When finished preparing the servers, it’s time to install GCM.
     ```
     
   - To later stop GCM, run this command:
-$ clustermgr-cli stop
-
+    ```
+    $ clustermgr-cli stop
+    ```
 1. For security reasons, GCM will only listen on localhost:5000. To be able to use GCM, we need to set up SSH port forwarding from the host computer. Execute the following command on the host machine:
-mbaser@debian:~$ ssh -L 5000:localhost:5000 foo@cm.mygluu.org
-foo@cm.mygluu.org's password: 
 
-GCM will display errors most of the time. If you have something unexpected, please see log files under /home/foo/.clustermgr/logs
+    ```
+    mbaser@debian:~$ ssh -L 5000:localhost:5000 foo@cm.mygluu.org
+    foo@cm.mygluu.org's password: 
+    ```
+    
+GCM will display errors most of the time. If you have something unexpected, please see log files under `/home/foo/.clustermgr/logs`
 
 ### Sign Up Cluster Manager
 
-On your desktop computer, open browser (Firefox or Chrome) and navigate to http://localhost:5000
-The first step is signup GCM. Signup will be performed only once. Choose a username and a password. I chose gcmuser
+On your desktop computer, open a browser (Firefox or Chrome) and navigate to http://localhost:5000
+The first step is signup GCM. Signup will be performed only once. Choose a username and a password. I chose `gcmuser`
 
 **image placeholder**
 
-On subsequent visits to GCM, you will use this username and password. In case you forget username or password, you can delete /home/foo/.clustermgr/auth.ini file. Not other settings/configurations will be damaged by deleting this file.
+On subsequent visits to GCM, you will use this username and password. In case you forget username or password, you can delete `/home/foo/.clustermgr/auth.ini` file. No other settings/configurations will be damaged by deleting this file.
 
 ### Configure Application
 
-Second step is to choose, clustering type. Since we are going to create a new cluster with two nodes, I choose Create a New Gluu Server Cluster. After hitting this button, we will be directed to Application Settings. On this page we need to enter these values:
+Second step is to choose the clustering type. Since we are going to create a new cluster with two nodes, I choose `Create a New Gluu Server Cluster`. After hitting this button, we will be directed to Application Settings. On this page we need to enter these values:
 
-**Replication Manager Password**: This password will be used GCM to set replication between opendj servers and mostly you won’t use this password yourself. Choose a strong password.
+**Replication Manager Password**: This password will be used GCM to set replication between the OpenDJ servers and mostly you won’t use this password yourself. Choose a strong password.
 **Load Balancer Hostname**: In our case it is lb.mygluu.org
 **Load Balancer IP Address**: In our case it is 192.168.56.200
 We also checked **Add IP Addresses and hostnames to /etc/hosts file on each server**
@@ -223,15 +228,15 @@ Next step is to Add Primary Server.
 
 **image placeholder**
 
-Add second server as follows
+Add a second server as follows
 
 **image placeholder**
 
-Your Dashboard should be look like as following figure. At any time you can add new Gluu Server node to your cluster so that you can enlarge cluster horizontally.
+Your Dashboard should look similar to the following figure. At any time you can add a new Gluu Server node to your cluster so that you can enlarge the cluster horizontally.
 
 **image placeholder**
 
-The Dashboard will also display health status of major Gluu components (LDAP, oxauth and identity) after installation.
+The Dashboard will also display the health status of major Gluu components (LDAP, oxAuth and Identity) after installation.
 We can install Gluu Servers by clicking Install Gluu button. First we should install primary server. When click, it will be asked some trivial info for creating ssl certificates, license agreements and Gluu Server Components to be installed. Click Submit button, after over-viewing setup properties, hit **Install Gluu Server** button.
 Gluu Server will be installed and configured so that it can work in cluster:
 
@@ -239,9 +244,9 @@ Gluu Server will be installed and configured so that it can work in cluster:
 
 Note that hostname will be set to lb.mygluu.org, all nodes hostname will be set to load balancer’s hostname, since the world will interact only with load balancer. After installation of all servers is finished, all status should be green in Service Liveness Status column on Dashboard.
 
-### Install NGINX
+### Install Nginx
 
-Nginx server will be installed on load balancer (LB). To install nginx choose Cluster > Install Nginx from the left menu.
+The Nginx server will be installed on load balancer (LB). To install Nginx, choose `Cluster > Install Nginx` from the left menu.
 
 **image placeholder**
 
@@ -255,28 +260,28 @@ If you hit the green button after nginx, you will jump to replication page. Alte
 
 On the page, if you can see Entires matches across the server and all is zero on M.C. column, then replication is good. 
 This is the final step for creating Gluu Server Cluster. You can test if your cluster is working. For this I follow these steps:
-1. Stop one of the Gluu Servers. I choose to stop GS2, so login as root and:
-# /etc/init.d/gluu-server-3.1.4 stop
+1. Stop one of the Gluu Servers. I choose to stop GS2, so login as root and:  
+`# /etc/init.d/gluu-server-3.1.4 stop`
 1. Login to Gluu UI via LB (lb.mygluu.org) with browser and add a test person: testuser
 
   **image placeholder**
 
 Since GS2 is not working while you are adding person, this person is created on GS1
-1. Start Gluu Server on GS2:
-# root@lb:~# /etc/init.d/gluu-server-3.1.4 start
-1. After a few seconds, stop Gluu Server on GS1:
-# /etc/init.d/gluu-server-3.1.4 stop
+1. Start Gluu Server on GS2:  
+`# root@lb:~# /etc/init.d/gluu-server-3.1.4 start`  
+1. After a few seconds, stop Gluu Server on GS1:  
+`# /etc/init.d/gluu-server-3.1.4 stop` 
 1. Then login Gluu UI with testuser via LB (lb.mygluu.org). If login is successful you are lucky.
 
 **image placeholder
 
-Since GS1 is not working, your are logged in GS2 which was not working while you are creating testuser. So cluster is working successfully.
-Before going to optional configurations please start Gluu Server on GS1:
-# root@lb:~# /etc/init.d/gluu-server-3.1.4 start
+Since GS1 is not working, you are logged in GS2 which was not working while you are creating testuser. So cluster is working successfully.
+Before going to optional configurations please start Gluu Server on GS1:  
+`# root@lb:~# /etc/init.d/gluu-server-3.1.4 start`
 
 ### Monitoring (optional)
 
-GCM can be used for monitoring your servers in the cluster. To setup monitoring, click Monitoring > Install Monitoring from the left menu. In the upcoming page, hit Install Monitoring button. You may get the following error, don’t worry it won’t break things:
+GCM can be used for monitoring your servers in the cluster. To setup monitoring, click `Monitoring > Install Monitoring` from the left menu. In the upcoming page, hit `Install Monitoring` button. You may get the following error, don’t worry it won’t break things:
 
 ```
 An error occurred while executing pip install pyDes: /usr/local/lib/python2.7/dist-packages/pip/_vendor/requests/__init__.py:83: RequestsDependencyWarning: Old version of cryptography ([1, 2, 3]) may cause slowdown. warnings.warn(warning, RequestsDependencyWarning) DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7.
